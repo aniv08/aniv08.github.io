@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Anniversary</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff0f5;
+            text-align: center;
+            padding: 50px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #d1007a;
+            margin-bottom: 20px;
+            animation: slideInFromLeft 1.5s ease-in-out;
+        }
+
+        p {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 40px;
+            animation: slideInFromRight 1.5s ease-in-out;
+        }
+
+        video {
+            width: 80%;
+            max-width: 700px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls, .audio-controls {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #d1007a;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #a1005a;
+            transform: scale(1.1);
+        }
+
+        .audio-buttons button {
+            width: 150px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes slideInFromRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Penutup */
+        .closing {
+            margin-top: 50px;
+            font-size: 24px;
+            color: #555;
+            animation: fadeIn 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>happy aniv ke 8 babyyyyy</h1>
+    <p>kamu adalah hal paling berharga yang aku miliki sayangg semga hubungan kita bisa langgeng terus yaa sayangg.</p>
+
+    <!-- Bagian Video -->
+    <video id="anniversaryVideo" controls>
+        <!-- Ganti "videos/anniversary.mp4" dengan path ke file video Anda -->
+        <source src="videos/anniversary.mp4" type="video/mp4">
+        Browser Anda tidak mendukung tag video.
+    </video>
+
+    <div class="controls">
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+        <button onclick="restartVideo()">Restart</button>
+        <button onclick="muteToggle()">Mute/Unmute</button>
+        <button onclick="fullscreenVideo()">Fullscreen</button>
+    </div>
+
+    <!-- Bagian Audio -->
+    <div class="audio-controls">
+        <h2>Pesan Ucapan</h2>
+        <div class="audio-buttons">
+            <button onclick="playAudio('message1')">Pesan 1</button>
+            <button onclick="playAudio('message2')">Pesan 2</button>
+            <button onclick="playAudio('message3')">Pesan 3</button>
+        </div>
+    </div>
+
+    <!-- Elemen Audio untuk Pesan -->
+    <audio id="message1" src="audio/message1.mp3"></audio>
+    <audio id="message2" src="audio/message2.mp3"></audio>
+    <audio id="message3" src="audio/message3.mp3"></audio>
+
+    <!-- Elemen Audio untuk Efek Tombol -->
+    <audio id="buttonSound" src="sounds/click-sound.mp3" preload="auto"></audio>
+
+    <!-- Penutup -->
+    <div class="closing">
+        <p>Terima kasih telah menjadi bagian dari hidupku. Semoga cinta kita selalu abadi.</p>
+    </div>
+
+    <script>
+        // Mengambil elemen video
+        var video = document.getElementById("anniversaryVideo");
+        // Mengambil elemen audio untuk efek tombol
+        var buttonSound = document.getElementById("buttonSound");
+
+        // Fungsi untuk memutar suara tombol
+        function playButtonSound() {
+            buttonSound.currentTime = 0;
+            buttonSound.play();
+        }
+
+        // Fungsi kontrol video
+        function playVideo() {
+            playButtonSound();
+            video.play();
+        }
+
+        function pauseVideo() {
+            playButtonSound();
+            video.pause();
+        }
+
+        function restartVideo() {
+            playButtonSound();
+            video.currentTime = 0;
+            video.play();
+        }
+
+        function muteToggle() {
+            playButtonSound();
+            video.muted = !video.muted;
+        }
+
+        function fullscreenVideo() {
+            playButtonSound();
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) { /* Firefox */
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE/Edge */
+                video.msRequestFullscreen();
+            }
+        }
+
+        // Fungsi untuk memutar audio pesan
+        function playAudio(messageId) {
+            playButtonSound();
+            var audio = document.getElementById(messageId);
+            // Pause semua audio pesan sebelum memutar yang baru
+            var allMessages = document.querySelectorAll('.audio-controls audio');
+            allMessages.forEach(function(msg) {
+                if (msg.id !== messageId) {
+                    msg.pause();
+                    msg.currentTime = 0;
+                }
+            });
+            audio.play();
+        }
+    </script>
+
+</body>
+</html>
